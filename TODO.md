@@ -4,8 +4,8 @@
 
 ### Create Account
 
-- [ ] Register administrators with name, email, password and role
-- [ ] Register users with first name, last name, email, password (with confirmation), date of birth, telephone, CPF and zip code
+- [ ] Register administrators with first name, last name, email, password (with confirmation) and role
+- [ ] Register customers with first name, last name, email, password (with confirmation), date of birth, phone number, CPF and zip code
      - [ ] Verify zip code via Correios API or similar
 - [ ] Confirm registration via email
 - [ ] Login via Google Account (OAuth)
@@ -13,7 +13,7 @@
 ### Update Profile
 
 - [ ] Update administrators' profile data: name, email, password (with confirmation), avatar
-- [ ] Update users' profile data: first name, last name, email, password
+- [ ] Update customers' profile data: first name, last name, email, password (with confirmation)
 
 ### Products
 
@@ -24,17 +24,17 @@
 - [ ] List all registered products
      - [ ] List all registered products filtered by category and gender
      - [ ] List all products registered in ascending and descending price orders
-- [ ] Receive the id of a registered product and return all users who purchased it
+- [ ] Receive the id of a registered product and return all customers who purchased it
 
 ### Delete Profile
 
 - [ ] Admins should delete their own profile
-- [ ] Users should delete their own profile
+- [ ] Customers should delete their own profile
 
 ### Password Recovery
 
 - [ ] Admins should recover their password via email
-- [ ] Users should recover their password via email
+- [ ] Customers should recover their password via email
 
 ### Purchases
 
@@ -46,9 +46,9 @@
 - [ ] Integrate with payment method
      - [ ] Add a fake payment method so that no real money is spent
 
-### Users
+### Customers
 
-- [ ] Receive the id of a registered user and return the products purchased by him
+- [ ] Receive the id of a registered customer and return the products purchased by him
 
 ### Chat
 
@@ -58,8 +58,8 @@
 ### Wishlist
 
 - [ ] Add a wishlist
-- [ ] The user must receive a notification on the website when a product is available in stock
-- [ ] The user should receive an email when a product is available in stock
+- [ ] The customer must receive a notification on the website when a product is available in stock
+- [ ] The customer should receive an email when a product is available in stock
 
 ## Chore
 
@@ -85,7 +85,7 @@
 
 ### Project Structure
 
-- [ ] Set entities
-- [ ] Set endpoints
-- [ ] Write examples for endpoint requests
-     - [ ] Request examples should be written in the form of a Postman collection or a markdown file with endpoint name, HTTP method and body
+- [x] Define entities
+- [x] Define endpoints
+- [x] Write examples for endpoint requests
+     - [x] Request examples should be written in the form of a Postman collection or a markdown file with endpoint name, HTTP method and body
