@@ -4,8 +4,9 @@
 
 ### Create Account
 
-- [ ] Register administrators with first name, last name, email, password (with confirmation) and role
-- [ ] Register customers with first name, last name, email, password (with confirmation), date of birth, phone number, CPF and zip code
+- [x] Register administrators with first name, last name, email, password and role
+- [x] Register customers with first name, last name, email, password, birthdate, phone number, CPF and zip code
+     - [ ] Add validation to confirm passwords
      - [ ] Verify zip code via Correios API or similar
 - [ ] Confirm registration via email
 - [ ] Login via Google Account (OAuth)
@@ -67,6 +68,8 @@
 
 - [x] Translate TODO.md and README.md to english
 - [ ] Add a table of contents to README.md
+- [x] Write examples for endpoint requests in the form of a Postman collection
+- [ ] Write examples for endpoint requests in the form of a markdown file with endpoint name, HTTP method and body
 
 ### Infrastructure
 
@@ -76,7 +79,7 @@
 - [ ] Build a workflow in Git with branches
      - [ ] Organize feature branches, development environment, staging environment, production environment, release, etc.
 - [x] Find out if it is possible to deploy the API in a cloud provider for free
-- [ ] Configure docker and docker-compose
+- [x] Configure docker and docker-compose
 
 ### Setup
 
@@ -87,5 +90,3 @@
 
 - [x] Define entities
 - [x] Define endpoints
-- [x] Write examples for endpoint requests
-     - [x] Request examples should be written in the form of a Postman collection or a markdown file with endpoint name, HTTP method and body
