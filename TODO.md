@@ -64,13 +64,6 @@
 
 ## Chore
 
-### Docs
-
-- [x] Translate TODO.md and README.md to english
-- [ ] Add a table of contents to README.md
-- [x] Write examples for endpoint requests in the form of a Postman collection
-- [ ] Write examples for endpoint requests in the form of a markdown file with endpoint name, HTTP method and body
-
 ### Infrastructure
 
 - [ ] Configure CI/CD with Github Actions
@@ -85,8 +78,16 @@
 
 - [ ] Setup Jest
 - [ ] Setup Prettier
+- [ ] CORS
 
 ### Project Structure
 
 - [x] Define entities
 - [x] Define endpoints
+
+## Docs
+
+- [x] Translate TODO.md and README.md to english
+- [ ] Add a table of contents to README.md
+- [x] Write examples for endpoint requests in the form of a Postman collection
+- [ ] Write examples for endpoint requests in the form of a markdown file with endpoint name, HTTP method and body

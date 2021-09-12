@@ -4,11 +4,11 @@ services:
     container_name: madclothes
     restart: always
     ports:
-      - "5433:5432"
+      - "${POSTGRES_PORT}:5432"
     environment:
-      POSTGRES_USER: $TYPEORM_USERNAME
-      POSTGRES_PASSWORD: $TYPEORM_PASSWORD
-      POSTGRES_DB: $TYPEORM_DATABASE
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - dbdata:/var/lib/postgresql/data
 
