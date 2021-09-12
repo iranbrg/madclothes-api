@@ -12,4 +12,5 @@ export enum HTTP {
     UnsupportedMediaType = 415, // If incorrect content type was provided as part of the request
     UnprocessableEntity = 422, // Used for validation errors
     TooManyRequests = 429, // When a request is rejected due to rate limiting
+    InternalServerError = 500
 }

@@ -3,7 +3,7 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 @Entity("users")
 export default class User {
     @PrimaryGeneratedColumn("uuid")
-    readonly id!: string;
+    id!: string;
 
     @Column({ name: "first_name" })
     firstName!: string;
