@@ -29,9 +29,14 @@ export default class CreateUserService {
     }: RequestDTO): Promise<Omit<RequestDTO, "password">> {
         const userRepository = getCustomRepository(UserRepository);
 
-        const checkUserExists = await userRepository.findOne({ email });
+        const isEmailInUse = await userRepository.findOne({ email });
+        const isCPFInUse = await userRepository.findOne({ cpf });
 
-        if (checkUserExists) {
+        if (isCPFInUse && isCPFInUse.cpf === cpf) {
+            throw new AppError("CPF already registerd");
+        }
+
+        if (isEmailInUse) {
             throw new AppError("Email address already in use");
         }
 
