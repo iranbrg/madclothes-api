@@ -3,7 +3,7 @@ import CreateUserService from "../services/CreateUserService";
 import { HTTP } from "../utils/constants";
 
 export default class CustomerController {
-    async create(req: Request, res: Response): Promise<void> {
+    public async create(req: Request, res: Response): Promise<void> {
         const {
             firstName,
             lastName,

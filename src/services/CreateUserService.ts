@@ -3,7 +3,7 @@ import UserRepository from "../repositories/UserRepository";
 import { hash } from "bcryptjs";
 import { AppError } from "../utils/errors";
 
-interface RequestDTO {
+interface UserDTO {
     firstName: string,
     lastName: string,
     email: string,
@@ -16,7 +16,7 @@ interface RequestDTO {
 }
 
 export default class CreateUserService {
-    async execute({
+    public async execute({
         firstName,
         lastName,
         email,
@@ -26,7 +26,7 @@ export default class CreateUserService {
         cpf,
         zipCode,
         isAdmin
-    }: RequestDTO): Promise<Omit<RequestDTO, "password">> {
+    }: UserDTO): Promise<Omit<UserDTO, "password">> {
         const userRepository = getCustomRepository(UserRepository);
 
         const isEmailInUse = await userRepository.findOne({ email });

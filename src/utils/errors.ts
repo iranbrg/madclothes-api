@@ -1,8 +1,9 @@
 import { HTTP } from "./constants";
 
+// Base error class for HTTP response errors
 export class HTTPException extends Error {
-    name: string;
-    statusCode: HTTP;
+    public readonly name: string;
+    public statusCode: HTTP;
 
     constructor(message: string, statusCode: HTTP) {
         super(message);
@@ -13,7 +14,7 @@ export class HTTPException extends Error {
 
 // Error class for business logic errors
 export class AppError extends HTTPException {
-    name: string;
+    public readonly name: string;
 
     constructor(message: string, statusCode: HTTP = 400) {
         super(message, statusCode);

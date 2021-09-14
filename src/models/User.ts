@@ -1,43 +1,49 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from "typeorm";
 
 @Entity("users")
 export default class User {
     @PrimaryGeneratedColumn("uuid")
-    id!: string;
+    public readonly id!: string;
 
     @Column({ name: "first_name" })
-    firstName!: string;
+    public firstName!: string;
 
     @Column({ name: "last_name" })
-    lastName!: string;
+    public lastName!: string;
 
     @Column()
-    email!: string;
+    public email!: string;
 
     @Column()
-    password!: string;
+    public password!: string;
 
     @Column()
-    birthdate!: Date;
+    public birthdate!: Date;
 
     @Column({ name: "phone_number" })
-    phoneNumber!: string;
+    public phoneNumber!: string;
 
     @Column()
-    cpf!: string;
+    public cpf!: string;
 
     @Column({ name: "zip_code" })
-    zipCode!: string;
+    public zipCode!: string;
 
     @Column()
-    avatar!: string;
+    public avatar!: string;
 
     @Column({ name: "is_admin" })
-    isAdmin!: boolean;
+    public isAdmin!: boolean;
 
     @CreateDateColumn({ name: "created_at" })
-    createdAt!: Date;
+    public createdAt!: Date;
 
     @UpdateDateColumn({ name: "updated_at" })
-    updatedAt!: Date;
+    public updatedAt!: Date;
 }
