@@ -1,8 +1,12 @@
 import { Request, Response } from "express";
+import { injectable } from "tsyringe";
 import CreateUserService from "../services/CreateUserService";
 import { HTTP } from "../utils/constants";
 
+@injectable()
 export default class CustomerController {
+    constructor(private createUserService: CreateUserService) { }
+
     public async create(req: Request, res: Response): Promise<void> {
         const {
             firstName,
@@ -16,9 +20,7 @@ export default class CustomerController {
             isAdmin
         } = req.body;
 
-        const createUserService = new CreateUserService();
-
-        const customer = await createUserService.execute({
+        const customer = await this.createUserService.execute({
             firstName,
             lastName,
             email,

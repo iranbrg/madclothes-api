@@ -1,21 +1,16 @@
-import { getCustomRepository } from "typeorm";
-import UserRepository from "../repositories/UserRepository";
 import { hash } from "bcryptjs";
 import { AppError } from "../utils/errors";
+import UserDTO from "../dto/UserDTO";
+import IUserRepository from "../repositories/IUserRepository";
+import { inject, injectable } from "tsyringe";
 
-interface UserDTO {
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-    birthdate?: Date,
-    phoneNumber?: string,
-    cpf?: string,
-    zipCode?: string,
-    isAdmin: boolean,
-}
-
+@injectable()
 export default class CreateUserService {
+    constructor(
+        @inject("UserRepository")
+        private userRepository: IUserRepository
+    ) { }
+
     public async execute({
         firstName,
         lastName,
@@ -27,14 +22,15 @@ export default class CreateUserService {
         zipCode,
         isAdmin
     }: UserDTO): Promise<Omit<UserDTO, "password">> {
-        const userRepository = getCustomRepository(UserRepository);
-
-        const isEmailInUse = await userRepository.findOne({ email });
-        const isCPFInUse = await userRepository.findOne({ cpf });
+        const isCPFInUse = cpf ?
+            await this.userRepository.findByCPF(cpf) :
+            null;
 
         if (isCPFInUse && isCPFInUse.cpf === cpf) {
             throw new AppError("CPF already registerd");
         }
+
+        const isEmailInUse = await this.userRepository.findByEmail(email);
 
         if (isEmailInUse) {
             throw new AppError("Email address already in use");
@@ -42,7 +38,7 @@ export default class CreateUserService {
 
         const passwordHash = await hash(password, 8)
 
-        const newUser = userRepository.create({
+        const newUser = await this.userRepository.create({
             firstName,
             lastName,
             email,
@@ -53,8 +49,6 @@ export default class CreateUserService {
             zipCode,
             isAdmin
         });
-
-        await userRepository.save(newUser);
 
         const { password: passwd, ...userWithoutPassword } = newUser;
 
