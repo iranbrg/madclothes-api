@@ -27,7 +27,7 @@ export default class CreateUserService {
             null;
 
         if (isCPFInUse && isCPFInUse.cpf === cpf) {
-            throw new AppError("CPF already registerd");
+            throw new AppError("CPF already registered");
         }
 
         const isEmailInUse = await this.userRepository.findByEmail(email);

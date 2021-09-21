@@ -1,5 +1,4 @@
 import {
-    BaseEntity,
     Column,
     CreateDateColumn,
     Entity,
@@ -8,7 +7,7 @@ import {
 } from "typeorm";
 
 @Entity("users")
-export default class User extends BaseEntity {
+export default class User {
     @PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
 

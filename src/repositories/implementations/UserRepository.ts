@@ -1,18 +1,22 @@
 import User from "../../entities/User";
 import IUserRepository from "../IUserRepository";
 import UserDTO from "../../dto/UserDTO";
+import { getRepository, Repository } from "typeorm";
 
 export default class UserRepository implements IUserRepository {
+    private userRepository: Repository<User> = getRepository(User);
+
     public async findByEmail(email: string): Promise<User | undefined> {
-        return User.findOne({ email });
+        return this.userRepository.findOne({ email });
     }
 
     public async findByCPF(cpf: string): Promise<User | undefined> {
-        return User.findOne({ cpf });
+        return this.userRepository.findOne({ cpf });
     }
 
     public async create(userProps: UserDTO): Promise<User> {
-        const user = User.create(userProps);
-        return User.save(user);
+        const user = new User();
+        Object.assign(user, userProps);
+        return this.userRepository.save(user);
     }
 }

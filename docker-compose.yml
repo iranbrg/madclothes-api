@@ -1,7 +1,7 @@
 services:
-  db:
+  postgres-development:
     image: postgres
-    container_name: madclothes
+    container_name: postgres-development
     restart: always
     ports:
       - "${POSTGRES_PORT}:5432"
@@ -10,7 +10,21 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - dbdata:/var/lib/postgresql/data
+      - postgres-development:/var/lib/postgresql/data
+
+  postgres-test:
+    image: postgres
+    container_name: postgres-test
+    restart: always
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "postgres-test"
+    volumes:
+      - postgres-test:/var/lib/postgresql/data
 
 volumes:
-  dbdata:
+  postgres-development:
+  postgres-test:

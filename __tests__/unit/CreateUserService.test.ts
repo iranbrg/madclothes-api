@@ -23,10 +23,13 @@ describe("CreateUserService", () => {
 
         const user = await createUserService.execute(userData);
 
+        const { password, ...matchUser } = userData;
+
         expect(user).toHaveProperty("id");
+        expect(user).toMatchObject(matchUser);
     })
 
-    test("Shouldn't create a new user that already exists", async () => {
+    test("Shouldn't create a user that already exists", async () => {
         const userData: UserDTO = {
             firstName: "John",
             lastName: "Doe",
@@ -42,7 +45,7 @@ describe("CreateUserService", () => {
             .toEqual(new AppError("Email address already in use"));
     })
 
-    test("Shouldn't create a new user with and already registered CPF", async () => {
+    test("Shouldn't create a new user with an already registered CPF", async () => {
         const userData: UserDTO = {
             firstName: "John",
             lastName: "Doe",
@@ -56,6 +59,6 @@ describe("CreateUserService", () => {
 
         await expect(createUserService.execute(userData))
             .rejects
-            .toEqual(new AppError("CPF already registerd"));
+            .toEqual(new AppError("CPF already registered"));
     })
 })
