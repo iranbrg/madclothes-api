@@ -15,6 +15,7 @@ describe("POST /api/v1/admins", () => {
     });
 
     afterAll(async () => {
+        await db.truncate();
         await db.close();
     })
 

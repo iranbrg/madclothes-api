@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - postgres-development:/var/lib/postgresql/data
+      - postgres-development-data:/var/lib/postgresql/data
 
   postgres-test:
     image: postgres
@@ -23,8 +23,8 @@ services:
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_DB: "postgres-test"
     volumes:
-      - postgres-test:/var/lib/postgresql/data
+      - postgres-test-data:/var/lib/postgresql/data
 
 volumes:
-  postgres-development:
-  postgres-test:
+  postgres-development-data:
+  postgres-test-data:

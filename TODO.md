@@ -67,7 +67,7 @@
 ### Infrastructure
 
 - [ ] Configure CI/CD with Github Actions
-     - [ ] Run unit and integration tests
+     - [x] Run unit and integration tests
      - [ ] Run linting and formatting
 - [ ] Build a workflow in Git with branches
      - [ ] Organize feature branches, development environment, staging environment, production environment, release, etc.
@@ -76,8 +76,9 @@
 
 ### Setup
 
-- [ ] Setup Jest
+- [x] Setup Jest
 - [ ] Setup Prettier
+- [ ] Setup ESlint
 - [ ] CORS
 
 ### Project Structure
