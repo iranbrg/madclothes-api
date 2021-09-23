@@ -17,10 +17,12 @@ class Database {
         const connection = this.getConnection();
         const entities = connection.entityMetadatas;
 
-        for (const entity of entities) {
-            const repository = connection.getRepository(entity.name);
-            await repository.clear();
-        }
+        await Promise.all(
+            entities.map(async entity => {
+                const repository = connection.getRepository(entity.name);
+                await repository.clear();
+            })
+        );
     }
 }
 
