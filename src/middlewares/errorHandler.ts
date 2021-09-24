@@ -10,7 +10,7 @@ export default function errorHandler(
 ): void {
     console.error(err.stack);
 
-    let status = "error";
+    const status = "error";
     let code = HTTP.InternalServerError;
     let message = "Internal Server Error";
 

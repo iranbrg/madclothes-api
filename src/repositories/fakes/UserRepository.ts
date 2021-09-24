@@ -15,7 +15,11 @@ export default class UserRepository implements IUserRepository {
 
     public async create(userProps: UserDTO): Promise<User> {
         const user = new User();
-        Object.assign(user, { id: Math.floor(Math.random() * 1000000) }, userProps);
+        Object.assign(
+            user,
+            { id: Math.floor(Math.random() * 1000000) },
+            userProps
+        );
 
         this.users.push(user);
 

@@ -1,15 +1,15 @@
 import { hash } from "bcryptjs";
+import { inject, injectable } from "tsyringe";
 import { AppError } from "../utils/errors";
 import UserDTO from "../dto/UserDTO";
 import IUserRepository from "../repositories/IUserRepository";
-import { inject, injectable } from "tsyringe";
 
 @injectable()
 export default class CreateUserService {
     constructor(
         @inject("UserRepository")
         private userRepository: IUserRepository
-    ) { }
+    ) {}
 
     public async execute({
         firstName,
@@ -22,9 +22,9 @@ export default class CreateUserService {
         zipCode,
         isAdmin
     }: UserDTO): Promise<Omit<UserDTO, "password">> {
-        const isCPFInUse = cpf ?
-            await this.userRepository.findByCPF(cpf) :
-            null;
+        const isCPFInUse = cpf
+            ? await this.userRepository.findByCPF(cpf)
+            : null;
 
         if (isCPFInUse && isCPFInUse.cpf === cpf) {
             throw new AppError("CPF already registered");
@@ -36,7 +36,7 @@ export default class CreateUserService {
             throw new AppError("Email address already in use");
         }
 
-        const passwordHash = await hash(password, 8)
+        const passwordHash = await hash(password, 8);
 
         const newUser = await this.userRepository.create({
             firstName,

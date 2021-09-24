@@ -1,7 +1,7 @@
+import { getRepository, Repository } from "typeorm";
 import User from "../../entities/User";
 import IUserRepository from "../IUserRepository";
 import UserDTO from "../../dto/UserDTO";
-import { getRepository, Repository } from "typeorm";
 
 export default class UserRepository implements IUserRepository {
     private userRepository: Repository<User> = getRepository(User);

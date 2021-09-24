@@ -8,7 +8,7 @@ describe("POST /api/v1/admins", () => {
     beforeAll(async () => {
         const connection = await db.connect();
         await connection.runMigrations();
-    })
+    });
 
     beforeEach(async () => {
         await db.truncate();
@@ -17,7 +17,7 @@ describe("POST /api/v1/admins", () => {
     afterAll(async () => {
         await db.truncate();
         await db.close();
-    })
+    });
 
     test("Should create a new admin", async () => {
         const userData: UserDTO = {
@@ -26,13 +26,15 @@ describe("POST /api/v1/admins", () => {
             email: "jdoe@email.com",
             password: "bigboobs69",
             isAdmin: true
-        }
+        };
 
-        const response = await request(app).post("/api/v1/admins").send(userData);
+        const response = await request(app)
+            .post("/api/v1/admins")
+            .send(userData);
 
         expect(response.status).toEqual(HTTP.Created);
         expect(response.body).toHaveProperty("data.admin.id");
-    })
+    });
 
     test("Shouldn't create an admin that already exists", async () => {
         const userData1: UserDTO = {
@@ -41,7 +43,7 @@ describe("POST /api/v1/admins", () => {
             email: "jdoe@email.com",
             password: "bigboobs69",
             isAdmin: true
-        }
+        };
 
         const userData2: UserDTO = {
             firstName: "Jane",
@@ -49,13 +51,18 @@ describe("POST /api/v1/admins", () => {
             email: "jdoe@email.com",
             password: "42069",
             isAdmin: true
-        }
+        };
 
         await request(app).post("/api/v1/admins").send(userData1);
-        const response = await request(app).post("/api/v1/admins").send(userData2);
+        const response = await request(app)
+            .post("/api/v1/admins")
+            .send(userData2);
 
         expect(response.status).toEqual(HTTP.BadRequest);
-        expect(response.body).toHaveProperty("status", "error")
-        expect(response.body).toHaveProperty("message", "Email address already in use")
-    })
-})
+        expect(response.body).toHaveProperty("status", "error");
+        expect(response.body).toHaveProperty(
+            "message",
+            "Email address already in use"
+        );
+    });
+});

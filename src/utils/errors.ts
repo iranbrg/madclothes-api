@@ -3,6 +3,7 @@ import { HTTP } from "./constants";
 // Base error class for HTTP response errors
 export class HTTPException extends Error {
     public readonly name: string;
+
     public statusCode: HTTP;
 
     constructor(message: string, statusCode: HTTP) {

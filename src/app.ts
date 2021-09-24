@@ -1,13 +1,13 @@
 import "reflect-metadata";
 import "express-async-errors";
-import { config } from 'dotenv';
-
-config({ path: process.env.NODE_ENV === "test" ? ".env.test" : ".env" })
+import { config } from "dotenv";
 
 import "./container";
 import express, { Application } from "express";
 import router from "./routes";
 import errorHandler from "./middlewares/errorHandler";
+
+config({ path: process.env.NODE_ENV === "test" ? ".env.test" : ".env" });
 
 class App {
     public express: Application;

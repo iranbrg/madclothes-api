@@ -5,7 +5,7 @@ import { HTTP } from "../utils/constants";
 
 @injectable()
 export default class CustomerController {
-    constructor(private createUserService: CreateUserService) { }
+    constructor(private createUserService: CreateUserService) {}
 
     public async create(req: Request, res: Response): Promise<void> {
         const {
@@ -32,6 +32,9 @@ export default class CustomerController {
             isAdmin
         });
 
-        res.status(HTTP.Created).json({ status: "success", data: { customer } });
+        res.status(HTTP.Created).json({
+            status: "success",
+            data: { customer }
+        });
     }
 }
