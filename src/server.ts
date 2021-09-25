@@ -3,8 +3,14 @@ import db from "./database";
 
 const PORT = process.env.PORT || 3000;
 
-db.connect().then(() => {
+(async () => {
+    try {
+        await db.connect();
+    } catch (err) {
+        console.error((err as Error).stack);
+    }
+
     app.listen(PORT, () =>
         console.log(`Server running at ${process.env.API_URL}`)
     );
-});
+})();

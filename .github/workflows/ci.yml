@@ -55,7 +55,7 @@ jobs:
     - name: Lint
       run: npm run lint
 
-    - name: Deploy to Heroku
+    - name: Deploy to Heroku (staging)
       if: github.ref == 'refs/heads/staging'
       uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
@@ -63,7 +63,7 @@ jobs:
         heroku_email: ${{ secrets.HEROKU_EMAIL }}
         heroku_app_name: madclothes-api-staging
 
-    - name: Deploy to Heroku
+    - name: Deploy to Heroku (production)
       if: github.ref == 'refs/heads/main'
       uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
