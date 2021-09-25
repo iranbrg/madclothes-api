@@ -8,9 +8,10 @@ module.exports = {
     logging: process.env.NODE_ENV !== "test",
     entities: [process.env.TYPEORM_ENTITIES],
     migrations: [process.env.TYPEORM_MIGRATIONS],
-    "ssl": {
-        "rejectUnauthorized": false
-    },
+    ssl:
+        process.env.NODE_ENV === "production"
+            ? { rejectUnauthorized: false }
+            : false,
     cli: {
         entitiesDir: "src/entities",
         migrationsDir: "src/database/migrations"
