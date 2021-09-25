@@ -1,0 +1,72 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main, staging ]
+  pull_request:
+    branches: [ main, staging ]
+
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Cache dependencies
+      uses: actions/cache@v2.1.6
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: ${{ runner.os }}-node-
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Set up Posgres docker container
+      env:
+        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+        TYPEORM_ENTITIES: ${{ secrets.TYPEORM_ENTITIES }}
+        TYPEORM_MIGRATIONS: ${{ secrets.TYPEORM_MIGRATIONS }}
+      run: |
+          docker-compose -f docker-compose.yml up -d postgres-test
+          docker ps -a
+
+    - name: Run tests
+      run: npm test -- --silent
+
+    - name: Format
+      run: npm run format
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Deploy to Heroku
+      if: github.ref == 'refs/heads/master'
+      uses: AkhileshNS/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+        heroku_email: ${{ secrets.HEROKU_EMAIL }}
+        heroku_app_name: madclothes-api-staging
+
+    - name: Deploy to Heroku
+      if: github.ref == 'refs/heads/master'
+      uses: AkhileshNS/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+        heroku_email: ${{ secrets.HEROKU_EMAIL }}
+        heroku_app_name: madclothes-api-prod

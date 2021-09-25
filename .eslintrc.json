@@ -1,10 +1,13 @@
 {
     "env": {
         "es2021": true,
-        "node": true
+        "node": true,
+        "jest": true
     },
     "extends": [
-        "airbnb-base"
+        "airbnb-base",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -12,11 +15,33 @@
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "prettier"
     ],
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
+    },
     "ignorePatterns": [
         "node_modules",
         "dist"
     ],
-    "rules": {}
+    "rules": {
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "ts": "never"
+            }
+        ],
+        "no-useless-constructor": "off",
+        "class-methods-use-this": "off",
+        "import/prefer-default-export": "off",
+        "max-classes-per-file": "off",
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": [
+            "error"
+        ]
+    }
 }

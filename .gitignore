@@ -1,3 +1,4 @@
 node_modules
 dist
-.nvimrc
+__tests__/coverage
+.env

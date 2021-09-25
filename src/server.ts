@@ -1,11 +1,10 @@
-import express, { Request, Response } from "express";
-
-const app = express();
+import app from "./app";
+import db from "./database";
 
 const PORT = process.env.PORT || 3000;
 
-app.get("/", (req: Request, res: Response) => {
-    res.json({ status: "success", data: "Hello World" });
+db.connect().then(() => {
+    app.listen(PORT, () =>
+        console.log(`Server running at ${process.env.API_URL}`)
+    );
 });
-
-app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
