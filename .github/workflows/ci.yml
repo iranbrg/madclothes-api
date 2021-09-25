@@ -62,11 +62,17 @@ jobs:
         heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
         heroku_email: ${{ secrets.HEROKU_EMAIL }}
         heroku_app_name: madclothes-api-staging
+        script: |
+            heroku run bash -a madclothes-api-staging
+            npx typeorm migration:run
 
-    - name: Deploy to Heroku (production)
+    - name: Deploy to Heroku (prod)
       if: github.ref == 'refs/heads/main'
       uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
         heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
         heroku_email: ${{ secrets.HEROKU_EMAIL }}
         heroku_app_name: madclothes-api-prod
+        script: |
+            heroku run bash -a madclothes-api-prod
+            npx typeorm migration:run
