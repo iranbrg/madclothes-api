@@ -65,9 +65,8 @@ jobs:
 
     - name: Run migrations (staging)
       if: github.ref == 'refs/heads/staging'
-      run: |
-        heroku run bash -a madclothes-api-prod
-        npx typeorm migration:run
+      run: heroku run npx typeorm migration:run -a madclothes-api-staging
+
 
     - name: Deploy to Heroku (prod)
       if: github.ref == 'refs/heads/main'
@@ -79,6 +78,5 @@ jobs:
 
     - name: Run migrations (prod)
       if: github.ref == 'refs/heads/prod'
-      run: |
-        heroku run bash -a madclothes-api-prod
-        npx typeorm migration:run
+      run: heroku run npx typeorm migration:run -a madclothes-api-prod
+
