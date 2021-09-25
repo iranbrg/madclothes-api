@@ -14,7 +14,6 @@ the stack informed below, and build a portfolio.
 - [TypeORM](https://typeorm.io/#/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Docker](https://www.docker.com/)
-- [JWT](https://jwt.io/)
 <!-- - [MongoDB](https://www.mongodb.com/) -->
 <!-- - [Redis](https://redis.io/) -->
 <!-- - [Kubernetes](https://kubernetes.io/) -->
