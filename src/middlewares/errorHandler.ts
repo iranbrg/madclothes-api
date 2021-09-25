@@ -14,7 +14,7 @@ export default function errorHandler(
     let code = HTTP.InternalServerError;
     let message = "Internal Server Error";
 
-    if (err instanceof AppError) {
+    if (err instanceof AppError || err instanceof HTTPException) {
         code = err.statusCode;
         message = err.message;
     }
