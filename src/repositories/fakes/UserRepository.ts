@@ -3,7 +3,11 @@ import IUserRepository from "../IUserRepository";
 import UserDTO from "../../dto/UserDTO";
 
 export default class UserRepository implements IUserRepository {
-    private users: Array<User> = [];
+    private users: User[] = [];
+
+    public async findAllCustomers(): Promise<User[]> {
+        return this.users.filter(user => !user.isAdmin)
+    }
 
     public async findByEmail(email: string): Promise<User | undefined> {
         return this.users.find(user => user.email === email);
@@ -11,6 +15,10 @@ export default class UserRepository implements IUserRepository {
 
     public async findByCPF(cpf: string): Promise<User | undefined> {
         return this.users.find(user => user.cpf === cpf);
+    }
+
+    public async findById(id: string): Promise<User | undefined> {
+        return this.users.find(user => user.id === id);
     }
 
     public async create(userProps: UserDTO): Promise<User> {

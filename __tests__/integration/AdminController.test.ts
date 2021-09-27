@@ -4,7 +4,7 @@ import UserDTO from "../../src/dto/UserDTO";
 import db from "../../src/database";
 import { HTTP } from "../../src/utils/constants";
 
-describe("POST /api/v1/admins", () => {
+describe("AdminController", () => {
     beforeAll(async () => {
         const connection = await db.connect();
         await connection.runMigrations();
@@ -19,50 +19,57 @@ describe("POST /api/v1/admins", () => {
         await db.close();
     });
 
-    test("Should create a new admin", async () => {
-        const userData: UserDTO = {
-            firstName: "John",
-            lastName: "Doe",
-            email: "jdoe@email.com",
-            password: "bigboobs69",
-            isAdmin: true
-        };
+    describe("POST /api/v1/admins", () => {
+        test("Should create a new admin", async () => {
+            const userData: UserDTO = {
+                firstName: "John",
+                lastName: "Doe",
+                email: "jdoe@email.com",
+                password: "bigboobs69",
+                isAdmin: true
+            };
 
-        const response = await request(app)
-            .post("/api/v1/admins")
-            .send(userData);
+            const { password, ...userDataWithoutPassword } = userData;
 
-        expect(response.status).toEqual(HTTP.Created);
-        expect(response.body).toHaveProperty("data.admin.id");
-    });
+            const response = await request(app)
+                .post("/api/v1/admins")
+                .send(userData);
 
-    test("Shouldn't create an admin that already exists", async () => {
-        const userData1: UserDTO = {
-            firstName: "John",
-            lastName: "Doe",
-            email: "jdoe@email.com",
-            password: "bigboobs69",
-            isAdmin: true
-        };
+            const customer = response.body.data.admin;
 
-        const userData2: UserDTO = {
-            firstName: "Jane",
-            lastName: "Doe",
-            email: "jdoe@email.com",
-            password: "42069",
-            isAdmin: true
-        };
+            expect(response.status).toEqual(HTTP.Created);
+            expect(customer).toMatchObject(userDataWithoutPassword);
+            expect(customer).not.toHaveProperty("password", userData.password);
+        });
 
-        await request(app).post("/api/v1/admins").send(userData1);
-        const response = await request(app)
-            .post("/api/v1/admins")
-            .send(userData2);
+        test("Shouldn't create an admin that already exists", async () => {
+            const userData1: UserDTO = {
+                firstName: "John",
+                lastName: "Doe",
+                email: "jdoe@email.com",
+                password: "bigboobs69",
+                isAdmin: true
+            };
 
-        expect(response.status).toEqual(HTTP.BadRequest);
-        expect(response.body).toHaveProperty("status", "error");
-        expect(response.body).toHaveProperty(
-            "message",
-            "Email address already in use"
-        );
+            const userData2: UserDTO = {
+                firstName: "Jane",
+                lastName: "Doe",
+                email: "jdoe@email.com",
+                password: "42069",
+                isAdmin: true
+            };
+
+            await request(app).post("/api/v1/admins").send(userData1);
+            const response = await request(app)
+                .post("/api/v1/admins")
+                .send(userData2);
+
+            expect(response.status).toEqual(HTTP.BadRequest);
+            expect(response.body).toHaveProperty("status", "error");
+            expect(response.body).toHaveProperty(
+                "message",
+                "Email address already in use"
+            );
+        });
     });
 });

@@ -3,13 +3,14 @@ import { inject, injectable } from "tsyringe";
 import { AppError } from "../utils/errors";
 import UserDTO from "../dto/UserDTO";
 import IUserRepository from "../repositories/IUserRepository";
+import User from "../entities/User";
 
 @injectable()
 export default class CreateUserService {
     constructor(
         @inject("UserRepository")
         private userRepository: IUserRepository
-    ) {}
+    ) { }
 
     public async execute({
         firstName,
@@ -21,7 +22,7 @@ export default class CreateUserService {
         cpf,
         zipCode,
         isAdmin
-    }: UserDTO): Promise<Omit<UserDTO, "password">> {
+    }: UserDTO): Promise<Omit<User, "password">> {
         const isCPFInUse = cpf
             ? await this.userRepository.findByCPF(cpf)
             : null;
