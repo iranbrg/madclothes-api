@@ -79,7 +79,7 @@
 - [x] Set up Jest
 - [x] Set up Prettier
 - [x] Set up ESlint
-- [ ] CORS
+- [x] CORS
 
 ### Project Structure
 

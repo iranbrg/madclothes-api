@@ -3,7 +3,7 @@ import db from "./database";
 
 const PORT = process.env.PORT || 3000;
 
-(async () => {
+(async (): Promise<void> => {
     try {
         await db.connect();
     } catch (err) {
