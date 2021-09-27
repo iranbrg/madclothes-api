@@ -10,9 +10,11 @@ export default class GetCustomerService {
     constructor(
         @inject("UserRepository")
         private userRepository: IUserRepository
-    ) { }
+    ) {}
 
-    public async execute({ customerId }: CustomerRequestDTO): Promise<Omit<User, "password">> {
+    public async execute({
+        customerId
+    }: CustomerRequestDTO): Promise<Omit<User, "password">> {
         const customer = await this.userRepository.findById(customerId);
 
         if (!customer) {

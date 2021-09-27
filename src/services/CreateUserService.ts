@@ -10,7 +10,7 @@ export default class CreateUserService {
     constructor(
         @inject("UserRepository")
         private userRepository: IUserRepository
-    ) { }
+    ) {}
 
     public async execute({
         firstName,

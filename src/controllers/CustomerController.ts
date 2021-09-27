@@ -11,7 +11,7 @@ export default class CustomerController {
         private createUserService: CreateUserService,
         private listCustomersService: ListCustomersService,
         private getCustomerService: GetCustomerService
-    ) { }
+    ) {}
 
     public async create(req: Request, res: Response): Promise<void> {
         const {

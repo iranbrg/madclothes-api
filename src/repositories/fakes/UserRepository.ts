@@ -6,7 +6,7 @@ export default class UserRepository implements IUserRepository {
     private users: User[] = [];
 
     public async findAllCustomers(): Promise<User[]> {
-        return this.users.filter(user => !user.isAdmin)
+        return this.users.filter(user => !user.isAdmin);
     }
 
     public async findByEmail(email: string): Promise<User | undefined> {

@@ -40,16 +40,22 @@ describe("GetCustomerService", () => {
 
         let users = [customer1, customer2, admin];
 
-        users = await Promise.all(users.map(async user => userRepository.create(user)))
+        users = await Promise.all(
+            users.map(async user => userRepository.create(user))
+        );
 
-        const customer = await getCustomerService.execute({ customerId: (users[0] as User).id });
+        const customer = await getCustomerService.execute({
+            customerId: (users[0] as User).id
+        });
 
         const usersWithoutPassword = users.map(user => {
             const { password, ...userWithoutPassword } = user;
             return userWithoutPassword;
         });
 
-        expect(customer).toEqual(expect.objectContaining(usersWithoutPassword[0]));
+        expect(customer).toEqual(
+            expect.objectContaining(usersWithoutPassword[0])
+        );
         expect(customer).not.toHaveProperty("password");
         expect(customer).not.toEqual(expect.objectContaining(customer2));
         expect(customer).not.toEqual(expect.objectContaining(admin));
@@ -68,8 +74,8 @@ describe("GetCustomerService", () => {
 
         const badId = String(Math.floor(Math.random() * 1000000));
 
-        await expect(getCustomerService.execute({ customerId: badId })).rejects.toEqual(
-            new AppError("User not found")
-        );
+        await expect(
+            getCustomerService.execute({ customerId: badId })
+        ).rejects.toEqual(new AppError("User not found"));
     });
 });

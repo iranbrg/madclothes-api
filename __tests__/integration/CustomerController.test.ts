@@ -35,11 +35,14 @@ describe("CustomerController", () => {
                 .post("/api/v1/customers")
                 .send(customerData);
 
-            const customer = response.body.data.customer;
+            const { customer } = response.body.data;
 
             expect(response.status).toEqual(HTTP.Created);
             expect(customer).toMatchObject(customerDataWithoutPassword);
-            expect(customer).not.toHaveProperty("password", customerData.password);
+            expect(customer).not.toHaveProperty(
+                "password",
+                customerData.password
+            );
         });
 
         test("Shouldn't create a customer that already exists", async () => {
@@ -133,10 +136,14 @@ describe("CustomerController", () => {
 
             const users = [customer1, customer2, admin];
 
-            const customers = await Promise.all(users.map(async user => {
-                const response = await request(app).post("/api/v1/customers").send(user)
-                return response.body.data.customer;
-            }));
+            const customers = await Promise.all(
+                users.map(async user => {
+                    const response = await request(app)
+                        .post("/api/v1/customers")
+                        .send(user);
+                    return response.body.data.customer;
+                })
+            );
 
             const response = await request(app).get("/api/v1/customers");
 
@@ -150,9 +157,7 @@ describe("CustomerController", () => {
                 ])
             );
             expect(customersResponse).not.toEqual(
-                expect.arrayContaining([
-                    expect.objectContaining(customers[2]),
-                ])
+                expect.arrayContaining([expect.objectContaining(customers[2])])
             );
         });
     });
@@ -185,14 +190,20 @@ describe("CustomerController", () => {
 
             const users = [customer1, customer2, admin];
 
-            const customers = await Promise.all(users.map(async user => {
-                const response = await request(app).post("/api/v1/customers").send(user)
-                return response.body.data.customer;
-            }));
+            const customers = await Promise.all(
+                users.map(async user => {
+                    const response = await request(app)
+                        .post("/api/v1/customers")
+                        .send(user);
+                    return response.body.data.customer;
+                })
+            );
 
-            const response = await request(app).get(`/api/v1/customers/${customers[0].id}`);
+            const response = await request(app).get(
+                `/api/v1/customers/${customers[0].id}`
+            );
 
-            const customer = response.body.data.customer;
+            const { customer } = response.body.data;
 
             expect(response.status).toEqual(HTTP.Ok);
             expect(customer).toEqual(expect.objectContaining(customers[0]));

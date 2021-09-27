@@ -3,7 +3,6 @@ import "express-async-errors";
 import { config } from "dotenv";
 import cors from "cors";
 
-
 import "./container";
 import express, { Application } from "express";
 import router from "./routes";
@@ -23,10 +22,12 @@ class App {
     }
 
     private middlewares(): void {
-        this.express.use(cors({
-            origin: "*",
-            optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-        }));
+        this.express.use(
+            cors({
+                origin: "*",
+                optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+            })
+        );
         this.express.use(express.json());
     }
 
