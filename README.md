@@ -1,88 +1,78 @@
 # madclothes-api
 
-## :fire: About The Project
+## About The Project
 
 It is a RESTful API for controlling sales of clothing items in a clothes shop
 called Madclothes. The goals are using it to study backend development, with
 the stack informed below, and build a portfolio.
 
-## :rocket: Tech Stack
+## Tech Stack
 
 - [Typescript](https://www.typescriptlang.org/)
 - [Node.js](https://nodejs.org/en/)
 - [Express.js](https://expressjs.com/pt-br/)
 - [TypeORM](https://typeorm.io/#/)
 - [PostgreSQL](https://www.postgresql.org/)
+- [Jest](https://jestjs.io/)
+- [GitHub Actions](https://github.com/features/actions)
 - [Docker](https://www.docker.com/)
-<!-- - [MongoDB](https://www.mongodb.com/) -->
-<!-- - [Redis](https://redis.io/) -->
-<!-- - [Kubernetes](https://kubernetes.io/) -->
+- [Heroku](https://www.heroku.com/)
 
-<!-- TODO: fazer seção `Como Contribuir` -->
-<!-- ## :thinking: Como Contribuir?
+## How To Run The Project
 
-```bash
-# Clone o repositório
-$ git clone https://github.com/iranbrg/madclothes-api.git && cd plataforma_singular_back
-
-# Crie uma branch a partir de develop com sua feature ou correção de bugs
-$ git checkout develop
-$ git checkout -b minha-branch
-
-# Faça o commit das suas alterações (use commits semânticos)
-$ git add *
-$ git commit -m 'feat: minhas alterações'
-
-# Faça o push para a sua branch
-$ git push origin minha-branch
-
-# Mude para develop e coloque sua branch lá
-$ git checkout develop
-$ git merge minha-branch
-``` -->
-
-<!-- TODO: fazer seção `Como Executar o Projeto?` -->
-<!-- ## :zap: Como Executar o Projeto?
-
-### Instalar o docker, se não tiver
-
-- [Clique aqui](https://www.notion.so/Instalando-Docker-6290d9994b0b4555a153576a1d97bee2)
-
-### Criar um container, se não tiver criado
+### Clone The Repository
 
 ```bash
-Rode no cmd/terminal
-$ docker run --name postgres -e POSTGRES_PASSWORD=singular -p 5434:5432 -d postgres
+$ git clone https://github.com/iranbrg/madclothes-api.git
+$ cd madclothes-api
 ```
 
-### Iniciando o container
-
-```bash
-Pegue o valor do containerid
-$ docker ps -a
-
-Inicie o container
-$ docker start containerid
-```
-
-### Instalando os módulos
+### Install Dependencies
 
 ```bash
 $ npm install
 ```
 
-### Iniciando o back-end
+### Set Enviroment Variables
+
+Create a `.env` file in the project's root. Check `.env.example` to see what
+needs to be set.
+
+```bash
+$ cp .env.example .env
+$ vim .env
+```
+
+### Setup Containers With `docker-compose`
+
+```bash
+$ docker-compose up -d
+```
+
+### Run Migrations
+
+```bash
+$ npm run typeorm migration:run
+```
+
+### Run The Server For Development
 
 ```bash
 $ npm run dev
 ```
 
-### Para rodar as migrations
+## Project Progress
 
-```bash
-$ npx sequelize db:migrate
-``` -->
+In the `main` branch, one can use the stable version of this API whereas in the
+`staging` branch are the latest and more updated features.
 
-## :hammer: Project Progress
+This project is deployed on Heroku and any client can consume this API. So
+checkout:
+- [Production](https://madclothes-api-prod.herokuapp.com/)
+- [Staging](https://madclothes-api-staging.herokuapp.com/)
 
-To check the current project's stage and the plans for new features, see [TODO.md](./TODO.md)
+To check the current project's stage and the plans for new features, see [TODO.md](./docs/TODO.md)
+
+## Documentation
+
+The documentation for this API can be found [here](https://documenter.getpostman.com/view/17688858/UUxzA7Hg)

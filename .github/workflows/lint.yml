@@ -1,0 +1,21 @@
+name: Lint and Format
+
+on:
+  push:
+    branches: [ main, staging ]
+  pull_request:
+    branches: [ main, staging ]
+
+  workflow_dispatch:
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Format
+      run: npm run format
+
+    - name: Lint
+      run: npm run lint

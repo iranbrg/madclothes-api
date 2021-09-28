@@ -1,0 +1,590 @@
+{
+	"info": {
+		"_postman_id": "dc3c48e7-8c4d-4928-a772-06e895146326",
+		"name": "madclothes-api",
+		"description": "## References and Structure of The API\n\n- Each API version works as a prefix applied to all endpoints, like: `http://localhost:3000/v1/customers`. Here, the endpoint `/customers` is prefixed with the API version `/v1`.\n- This API follows [JSend](https://github.com/omniti-labs/jsend) specification to format JSON responses.\n\n## Errors and HTTP Status Codes\n\n### Validation Failure\n\nIf a request fails any validation, expect errors in the following format:\n\n```JSON\n{\n  \"status\": \"fail\",\n  \"data\": { \"title\" : \"A title is required\" }\n}\n```\n\n### Business Logic Error\n\nIf a request fails any business logic verification, expect errors in the following format:\n\n```JSON\n{\n  \"status\": \"error\",\n  \"code\": 400,\n  \"message\": \"Email address already in use\"\n}\n```\n\n### Server Error\n\nIf an internal server error occur, expect errors in the following format:\n\n```JSON\n{\n  \"status\": \"error\",\n  \"code\": 500,\n  \"message\": \"Internal Server Error\"\n}\n```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "v1",
+			"item": [
+				{
+					"name": "users",
+					"item": [
+						{
+							"name": "customers",
+							"item": [
+								{
+									"name": "/customers",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"123456\",\n    \"confirmPassword\": \"123456\",\n    \"birthdate\": \"{{$isoTimestamp}}\",\n    \"phoneNumber\": \"{{$randomPhoneNumberExt}}\",\n    \"cpf\": \"873.572.111-02\",\n    \"zipCode\": \"55816-210\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/customers",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"customers"
+											]
+										},
+										"description": "Register a new customer"
+									},
+									"response": []
+								},
+								{
+									"name": "/customers",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/customers",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"customers"
+											]
+										},
+										"description": "List all registered customers"
+									},
+									"response": []
+								},
+								{
+									"name": "/customers/:customerId",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/customers/:customerId",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId",
+													"value": "08110db8-1238-4525-a203-64e52927d648"
+												}
+											]
+										},
+										"description": "Get a specific customer by his id"
+									},
+									"response": []
+								},
+								{
+									"name": "/customers/:customerId",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe Clinton\",\n    \"email\": \"jdoe@email.com\",\n    \"password\": \"123\",\n    \"confirmPassword\": \"123\",\n    \"birthdate\": \"{{$randomDatePast}\",\n    \"phoneNumber\": \"(71) 4200-6969\",\n    \"zipCode\": \"55816-210\",\n    \"avatar\": \"image.jpg\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/customers/:customersId",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"customers",
+												":customersId"
+											],
+											"variable": [
+												{
+													"key": "customersId",
+													"value": null
+												}
+											]
+										},
+										"description": "Edit profile data from a specific customer"
+									},
+									"response": []
+								},
+								{
+									"name": "/customers/:customerId",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/customers/:customerId",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId",
+													"value": null
+												}
+											]
+										},
+										"description": "Delete a customer account"
+									},
+									"response": []
+								}
+							],
+							"description": "Where all customer related requests reside."
+						},
+						{
+							"name": "admins",
+							"item": [
+								{
+									"name": "/admins",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"123456\",\n    \"confirmPassword\": \"123456\",\n    \"isAdmin\": true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/{{v1}}/admins",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"{{v1}}",
+												"admins"
+											]
+										},
+										"description": "Register a new admin"
+									},
+									"response": []
+								},
+								{
+									"name": "/admins/:adminId",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Doe Clinton\",\n    \"email\": \"jadoe@email.com\",\n    \"password\": \"123\",\n    \"confirmPassword\": \"123\",\n    \"avatar\": \"image.jpg\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/admins/:adminId",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"admins",
+												":adminId"
+											],
+											"variable": [
+												{
+													"key": "adminId",
+													"value": null
+												}
+											]
+										},
+										"description": "Edit profile data from a specific admin"
+									},
+									"response": []
+								},
+								{
+									"name": "/admins/:adminId",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/admins/:adminId",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"admins",
+												":adminId"
+											],
+											"variable": [
+												{
+													"key": "adminId",
+													"value": null
+												}
+											]
+										},
+										"description": "Delete a customer account"
+									},
+									"response": []
+								}
+							],
+							"description": "Where all customer related requests reside."
+						}
+					],
+					"description": "Where all stuff related to users lie, like admins and customers."
+				},
+				{
+					"name": "products",
+					"item": [
+						{
+							"name": "/products",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Blue t-shirt\",\n    \"gender\": \"male\",\n    \"brand\": \"Adidas\",\n    \"price\": 69.69,\n    \"quantityInStock\": 420,\n    \"category\": \"t-shirt\",\n    \"description\": \"This is a very good blue t-shirt\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/products",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/products",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/products?category=t-shirt&gender=male&sort=-price",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"products"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "t-shirt"
+										},
+										{
+											"key": "gender",
+											"value": "male"
+										},
+										{
+											"key": "sort",
+											"value": "-price"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/products/:productId",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/products/:productId",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"products",
+										":productId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/products/:productId",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Blue t-shirt\",\n    \"gender\": \"male\",\n    \"brand\": \"Adidas\",\n    \"price\": 69.69,\n    \"quantityInStock\": 420,\n    \"category\": \"t-shirt\",\n    \"description\": \"This is a very good blue t-shirt\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/products/:productId",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"products",
+										":productId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/products/:productId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/products/:productId",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"products",
+										":productId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "purchases",
+					"item": [
+						{
+							"name": "/purchases",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/purchases?customerId=1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"purchases"
+									],
+									"query": [
+										{
+											"key": "customerId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/purchases/:purchaseId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/purchases/:purchaseId",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"purchases",
+										":purchaseId"
+									],
+									"variable": [
+										{
+											"key": "purchaseId",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/purchases/:purchaseId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/purchases/:purchaseId",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"purchases",
+										":purchaseId"
+									],
+									"variable": [
+										{
+											"key": "purchaseId",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Not found",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "1st version of the API."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
