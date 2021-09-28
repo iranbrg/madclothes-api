@@ -19,7 +19,7 @@ describe("AdminController", () => {
         await db.close();
     });
 
-    describe("POST /api/v1/admins", () => {
+    describe("POST /v1/admins", () => {
         test("Should create a new admin", async () => {
             const userData: UserDTO = {
                 firstName: "John",
@@ -32,7 +32,7 @@ describe("AdminController", () => {
             const { password, ...userDataWithoutPassword } = userData;
 
             const response = await request(app)
-                .post("/api/v1/admins")
+                .post("/v1/admins")
                 .send(userData);
 
             const customer = response.body.data.admin;
@@ -59,9 +59,9 @@ describe("AdminController", () => {
                 isAdmin: true
             };
 
-            await request(app).post("/api/v1/admins").send(userData1);
+            await request(app).post("/v1/admins").send(userData1);
             const response = await request(app)
-                .post("/api/v1/admins")
+                .post("/v1/admins")
                 .send(userData2);
 
             expect(response.status).toEqual(HTTP.BadRequest);

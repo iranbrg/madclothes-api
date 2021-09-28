@@ -19,7 +19,7 @@ describe("CustomerController", () => {
         await db.close();
     });
 
-    describe("POST /api/v1/customers", () => {
+    describe("POST /v1/customers", () => {
         test("Should create a new customer and return it without exposing his password", async () => {
             const customerData: UserDTO = {
                 firstName: "John",
@@ -32,7 +32,7 @@ describe("CustomerController", () => {
             const { password, ...customerDataWithoutPassword } = customerData;
 
             const response = await request(app)
-                .post("/api/v1/customers")
+                .post("/v1/customers")
                 .send(customerData);
 
             const { customer } = response.body.data;
@@ -62,9 +62,9 @@ describe("CustomerController", () => {
                 isAdmin: false
             };
 
-            await request(app).post("/api/v1/customers").send(userData1);
+            await request(app).post("/v1/customers").send(userData1);
             const response = await request(app)
-                .post("/api/v1/customers")
+                .post("/v1/customers")
                 .send(userData2);
 
             expect(response.status).toEqual(HTTP.BadRequest);
@@ -94,9 +94,9 @@ describe("CustomerController", () => {
                 isAdmin: false
             };
 
-            await request(app).post("/api/v1/customers").send(userData1);
+            await request(app).post("/v1/customers").send(userData1);
             const response = await request(app)
-                .post("/api/v1/customers")
+                .post("/v1/customers")
                 .send(userData2);
 
             expect(response.status).toEqual(HTTP.BadRequest);
@@ -108,7 +108,7 @@ describe("CustomerController", () => {
         });
     });
 
-    describe("GET /api/v1/customers", () => {
+    describe("GET /v1/customers", () => {
         test("Should list all registered customers without exposing their passwords", async () => {
             const customer1: UserDTO = {
                 firstName: "John",
@@ -139,13 +139,13 @@ describe("CustomerController", () => {
             const customers = await Promise.all(
                 users.map(async user => {
                     const response = await request(app)
-                        .post("/api/v1/customers")
+                        .post("/v1/customers")
                         .send(user);
                     return response.body.data.customer;
                 })
             );
 
-            const response = await request(app).get("/api/v1/customers");
+            const response = await request(app).get("/v1/customers");
 
             const customersResponse = response.body.data.customers;
 
@@ -162,7 +162,7 @@ describe("CustomerController", () => {
         });
     });
 
-    describe("GET /api/v1/customers/:customerId", () => {
+    describe("GET /v1/customers/:customerId", () => {
         test("Should get a customer without exposing his password", async () => {
             const customer1: UserDTO = {
                 firstName: "John",
@@ -193,14 +193,14 @@ describe("CustomerController", () => {
             const customers = await Promise.all(
                 users.map(async user => {
                     const response = await request(app)
-                        .post("/api/v1/customers")
+                        .post("/v1/customers")
                         .send(user);
                     return response.body.data.customer;
                 })
             );
 
             const response = await request(app).get(
-                `/api/v1/customers/${customers[0].id}`
+                `/v1/customers/${customers[0].id}`
             );
 
             const { customer } = response.body.data;
