@@ -76,4 +76,5 @@ To check the current project's stage and the plans for new features, see [TODO.m
 ## Documentation
 
 The documentation for this API can be found [here](https://documenter.getpostman.com/view/17688858/UUxzA7Hg)
+
 A [Potman Collection](./docs/madclothes-api.postman_collection.json) is also available at `docs` directory
