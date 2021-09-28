@@ -4,7 +4,7 @@ import notFound from "./notFound";
 
 const router = Router();
 
-router.use("/api/v1", v1);
+router.use("/v1", v1);
 
 router.use(notFound);
 
