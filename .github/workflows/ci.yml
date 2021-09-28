@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -33,13 +33,6 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
     - name: Set up Posgres docker container
       env:
         POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
@@ -55,3 +48,34 @@ jobs:
 
     - name: Run tests
       run: npm test -- --silent
+
+    - name: Format
+      run: npm run format
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Deploy to Heroku (staging)
+      if: github.ref == 'refs/heads/staging'
+      uses: AkhileshNS/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+        heroku_email: ${{ secrets.HEROKU_EMAIL }}
+        heroku_app_name: madclothes-api-staging
+
+    - name: Run migrations (staging)
+      if: github.ref == 'refs/heads/staging'
+      run: heroku run npx typeorm migration:run -a madclothes-api-staging
+
+
+    - name: Deploy to Heroku (prod)
+      if: github.ref == 'refs/heads/main'
+      uses: AkhileshNS/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+        heroku_email: ${{ secrets.HEROKU_EMAIL }}
+        heroku_app_name: madclothes-api-prod
+
+    - name: Run migrations (prod)
+      if: github.ref == 'refs/heads/prod'
+      run: heroku run npx typeorm migration:run -a madclothes-api-prod
