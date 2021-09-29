@@ -2,7 +2,7 @@ import UserDTO from "../dto/UserDTO";
 import User from "../entities/User";
 
 export default interface IUserRepository {
-    findAllCustomers(): Promise<User[]>;
+    findAllCustomers(page: number, limit: number): Promise<[User[], number]>;
     findByEmail(email: string): Promise<User | undefined>;
     findByCPF(cpf: string): Promise<User | undefined>;
     findById(id: string): Promise<User | undefined>;

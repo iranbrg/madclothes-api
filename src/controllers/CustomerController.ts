@@ -11,7 +11,7 @@ export default class CustomerController {
         private createUserService: CreateUserService,
         private listCustomersService: ListCustomersService,
         private getCustomerService: GetCustomerService
-    ) {}
+    ) { }
 
     public async create(req: Request, res: Response): Promise<void> {
         const {
@@ -45,10 +45,18 @@ export default class CustomerController {
     }
 
     public async index(req: Request, res: Response): Promise<void> {
-        const customers = await this.listCustomersService.execute();
+        let page = Number(req.query.page) || 1;
+        let limit = Number(req.query.limit) || 10;
+
+        const [customers, total] = await this.listCustomersService.execute({ page, limit });
+
+        const lastPage = Math.ceil(total / limit);
 
         res.status(HTTP.Ok).json({
             status: "success",
+            page,
+            limit,
+            lastPage,
             data: { customers }
         });
     }
