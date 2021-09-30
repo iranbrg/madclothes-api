@@ -10,10 +10,16 @@ export default class ListCustomersService {
     constructor(
         @inject("UserRepository")
         private userRepository: IUserRepository
-    ) { }
+    ) {}
 
-    public async execute({ limit, page }: PaginationDTO): Promise<CustomersWithoutPassword> {
-        const customers = await this.userRepository.findAllCustomers(limit, page);
+    public async execute({
+        limit,
+        page
+    }: PaginationDTO): Promise<CustomersWithoutPassword> {
+        const customers = await this.userRepository.findAllCustomers(
+            limit,
+            page
+        );
 
         const customersWithoutPassword = customers.map(customer => {
             const { password, ...customerWithoutPassword } = customer;

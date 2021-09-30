@@ -30,7 +30,11 @@ describe("AdminController", () => {
                 isAdmin: true
             };
 
-            const { password, passwordConfirmation, ...userDataWithoutPassword } = userData;
+            const {
+                password,
+                passwordConfirmation,
+                ...userDataWithoutPassword
+            } = userData;
 
             const response = await request(app)
                 .post("/v1/admins")

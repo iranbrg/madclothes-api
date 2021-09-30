@@ -30,7 +30,11 @@ describe("CustomerController", () => {
                 isAdmin: false
             };
 
-            const { password, passwordConfirmation, ...customerDataWithoutPassword } = customerData;
+            const {
+                password,
+                passwordConfirmation,
+                ...customerDataWithoutPassword
+            } = customerData;
 
             const response = await request(app)
                 .post("/v1/customers")

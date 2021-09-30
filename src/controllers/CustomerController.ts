@@ -14,8 +14,8 @@ export default class CustomerController {
 
         private createUserService: CreateUserService,
         private listCustomersService: ListCustomersService,
-        private getCustomerService: GetCustomerService,
-    ) { }
+        private getCustomerService: GetCustomerService
+    ) {}
 
     public async create(req: Request, res: Response): Promise<void> {
         const {
@@ -50,13 +50,16 @@ export default class CustomerController {
 
     public async index(req: Request, res: Response): Promise<void> {
         let page = Number(req.query.page);
-        let limit = Number(req.query.limit);
+        const limit = Number(req.query.limit);
 
         const total = await this.userRepository.countCustomers();
         const lastPage = Math.ceil(total / limit);
         page = page > lastPage ? lastPage : page;
 
-        const customers = await this.listCustomersService.execute({ page, limit });
+        const customers = await this.listCustomersService.execute({
+            page,
+            limit
+        });
 
         res.status(HTTP.Ok).json({
             status: "success",

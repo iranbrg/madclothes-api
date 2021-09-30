@@ -10,7 +10,10 @@ export default class UserRepository implements IUserRepository {
         return this.userRepository.count({ isAdmin: false });
     }
 
-    public async findAllCustomers(limit: number, page: number): Promise<User[]> {
+    public async findAllCustomers(
+        limit: number,
+        page: number
+    ): Promise<User[]> {
         const offset = (page - 1) * limit;
 
         return this.userRepository.find({

@@ -12,8 +12,8 @@
         "test:watch": "jest --detectOpenHandles --watchAll",
         "test:unit": "jest roots __tests__/unit/",
         "test:integration": "jest roots __tests__/integration/ --detectOpenHandles",
-        "lint": "eslint . --ext js,ts --quiet",
-        "lint:fix": "eslint . --ext js,ts --quiet --fix",
+        "lint": "eslint . --ext js,ts",
+        "lint:fix": "eslint . --ext js,ts --fix",
         "format": "prettier -w '**/*.{js,ts}' '!**/coverage/**'"
     },
     "keywords": [],
