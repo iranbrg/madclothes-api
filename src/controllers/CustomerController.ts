@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
+import IUserRepository from "../repositories/IUserRepository";
 import CreateUserService from "../services/CreateUserService";
 import GetCustomerService from "../services/GetCustomerService";
 import ListCustomersService from "../services/ListCustomersService";
@@ -8,6 +9,9 @@ import { HTTP } from "../utils/constants";
 @injectable()
 export default class CustomerController {
     constructor(
+        @inject("UserRepository")
+        private userRepository: IUserRepository,
+
         private createUserService: CreateUserService,
         private listCustomersService: ListCustomersService,
         private getCustomerService: GetCustomerService
@@ -45,10 +49,23 @@ export default class CustomerController {
     }
 
     public async index(req: Request, res: Response): Promise<void> {
-        const customers = await this.listCustomersService.execute();
+        let page = Number(req.query.page);
+        const limit = Number(req.query.limit);
+
+        const total = await this.userRepository.countCustomers();
+        const lastPage = Math.ceil(total / limit);
+        page = page > lastPage ? lastPage : page;
+
+        const customers = await this.listCustomersService.execute({
+            page,
+            limit
+        });
 
         res.status(HTTP.Ok).json({
             status: "success",
+            page,
+            limit,
+            lastPage,
             data: { customers }
         });
     }

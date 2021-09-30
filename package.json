@@ -12,8 +12,8 @@
         "test:watch": "jest --detectOpenHandles --watchAll",
         "test:unit": "jest roots __tests__/unit/",
         "test:integration": "jest roots __tests__/integration/ --detectOpenHandles",
-        "lint": "eslint . --ext js,ts --quiet",
-        "lint:fix": "eslint . --ext js,ts --quiet --fix",
+        "lint": "eslint . --ext js,ts",
+        "lint:fix": "eslint . --ext js,ts --fix",
         "format": "prettier -w '**/*.{js,ts}' '!**/coverage/**'"
     },
     "keywords": [],
@@ -28,7 +28,8 @@
         "pg": "^8.7.1",
         "reflect-metadata": "^0.1.13",
         "tsyringe": "^4.6.0",
-        "typeorm": "^0.2.37"
+        "typeorm": "^0.2.37",
+        "yup": "^0.32.9"
     },
     "devDependencies": {
         "@types/bcryptjs": "^2.4.2",

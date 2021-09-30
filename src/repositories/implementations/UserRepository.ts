@@ -6,8 +6,21 @@ import UserDTO from "../../dto/UserDTO";
 export default class UserRepository implements IUserRepository {
     private userRepository: Repository<User> = getRepository(User);
 
-    public async findAllCustomers(): Promise<User[]> {
-        return this.userRepository.find({ isAdmin: false });
+    public async countCustomers(): Promise<number> {
+        return this.userRepository.count({ isAdmin: false });
+    }
+
+    public async findAllCustomers(
+        limit: number,
+        page: number
+    ): Promise<User[]> {
+        const offset = (page - 1) * limit;
+
+        return this.userRepository.find({
+            where: { isAdmin: false },
+            skip: offset,
+            take: limit
+        });
     }
 
     public async findByEmail(email: string): Promise<User | undefined> {
