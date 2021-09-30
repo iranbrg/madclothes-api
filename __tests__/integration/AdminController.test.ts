@@ -20,16 +20,17 @@ describe("AdminController", () => {
     });
 
     describe("POST /v1/admins", () => {
-        test("Should create a new admin", async () => {
+        test("Should create a new admin and return his data without exposing his password", async () => {
             const userData: UserDTO = {
                 firstName: "John",
                 lastName: "Doe",
                 email: "jdoe@email.com",
                 password: "bigboobs69",
+                passwordConfirmation: "bigboobs69",
                 isAdmin: true
             };
 
-            const { password, ...userDataWithoutPassword } = userData;
+            const { password, passwordConfirmation, ...userDataWithoutPassword } = userData;
 
             const response = await request(app)
                 .post("/v1/admins")
@@ -48,6 +49,7 @@ describe("AdminController", () => {
                 lastName: "Doe",
                 email: "jdoe@email.com",
                 password: "bigboobs69",
+                passwordConfirmation: "bigboobs69",
                 isAdmin: true
             };
 
@@ -56,6 +58,7 @@ describe("AdminController", () => {
                 lastName: "Doe",
                 email: "jdoe@email.com",
                 password: "42069",
+                passwordConfirmation: "42069",
                 isAdmin: true
             };
 

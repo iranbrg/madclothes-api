@@ -19,6 +19,8 @@ export function validate(shape: ObjectShape, path: Path): ValdationMiddleware {
 
             next();
         } catch (err) {
+            console.error(err);
+
             const data = (err as yup.ValidationError).inner.reduce((acc, error) => {
                 if (error.path)
                     acc[error.path] = error.message;

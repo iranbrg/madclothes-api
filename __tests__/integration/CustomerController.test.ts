@@ -20,16 +20,17 @@ describe("CustomerController", () => {
     });
 
     describe("POST /v1/customers", () => {
-        test("Should create a new customer and return it without exposing his password", async () => {
+        test("Should create a new customer and return his data without exposing his password", async () => {
             const customerData: UserDTO = {
                 firstName: "John",
                 lastName: "Doe",
                 email: "jdoe@email.com",
                 password: "bigboobs69",
+                passwordConfirmation: "bigboobs69",
                 isAdmin: false
             };
 
-            const { password, ...customerDataWithoutPassword } = customerData;
+            const { password, passwordConfirmation, ...customerDataWithoutPassword } = customerData;
 
             const response = await request(app)
                 .post("/v1/customers")
@@ -51,6 +52,7 @@ describe("CustomerController", () => {
                 lastName: "Doe",
                 email: "jdoe@email.com",
                 password: "bigboobs69",
+                passwordConfirmation: "bigboobs69",
                 isAdmin: false
             };
 
@@ -59,6 +61,7 @@ describe("CustomerController", () => {
                 lastName: "Doe",
                 email: "jdoe@email.com",
                 password: "42069",
+                passwordConfirmation: "42069",
                 isAdmin: false
             };
 
@@ -81,6 +84,7 @@ describe("CustomerController", () => {
                 lastName: "Doe",
                 email: "jdoe@email.com",
                 password: "bigboobs69",
+                passwordConfirmation: "bigboobs69",
                 cpf: "123876123",
                 isAdmin: false
             };
@@ -90,6 +94,7 @@ describe("CustomerController", () => {
                 lastName: "Doe",
                 email: "janedoe@email.com",
                 password: "42069",
+                passwordConfirmation: "42069",
                 cpf: "123876123",
                 isAdmin: false
             };
@@ -115,6 +120,7 @@ describe("CustomerController", () => {
                 lastName: "Doe",
                 email: "jdoe@email.com",
                 password: "bigboobs69",
+                passwordConfirmation: "bigboobs69",
                 isAdmin: false
             };
 
@@ -123,6 +129,7 @@ describe("CustomerController", () => {
                 lastName: "Doe",
                 email: "janedoe@email.com",
                 password: "bigboobs69",
+                passwordConfirmation: "bigboobs69",
                 isAdmin: false
             };
 
@@ -131,6 +138,7 @@ describe("CustomerController", () => {
                 lastName: "Doe",
                 email: "mdoe@email.com",
                 password: "bigboobs69",
+                passwordConfirmation: "bigboobs69",
                 isAdmin: true
             };
 
@@ -169,6 +177,7 @@ describe("CustomerController", () => {
                 lastName: "Doe",
                 email: "jdoe@email.com",
                 password: "bigboobs69",
+                passwordConfirmation: "bigboobs69",
                 isAdmin: false
             };
 
@@ -177,6 +186,7 @@ describe("CustomerController", () => {
                 lastName: "Doe",
                 email: "janedoe@email.com",
                 password: "bigboobs69",
+                passwordConfirmation: "bigboobs69",
                 isAdmin: false
             };
 
@@ -185,6 +195,7 @@ describe("CustomerController", () => {
                 lastName: "Doe",
                 email: "mdoe@email.com",
                 password: "bigboobs69",
+                passwordConfirmation: "bigboobs69",
                 isAdmin: true
             };
 

@@ -49,8 +49,8 @@ export default class CustomerController {
     }
 
     public async index(req: Request, res: Response): Promise<void> {
-        let page = Number(req.query.page) || 1;
-        let limit = Number(req.query.limit) || 10;
+        let page = Number(req.query.page);
+        let limit = Number(req.query.limit);
 
         const total = await this.userRepository.countCustomers();
         const lastPage = Math.ceil(total / limit);

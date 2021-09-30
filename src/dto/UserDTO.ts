@@ -3,6 +3,7 @@ export default interface UserDTO {
     lastName: string;
     email: string;
     password: string;
+    passwordConfirmation?: string;
     birthdate?: Date;
     phoneNumber?: string;
     cpf?: string;
