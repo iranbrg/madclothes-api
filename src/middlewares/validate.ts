@@ -45,7 +45,9 @@ export const customerSchema = {
     lastName: yup.string().required(),
     email: yup.string().email().required(),
     password: yup.string().required(),
-    confirmPassword: yup.string().required(),
+    passwordConfirmation: yup.string().test({
+        test: (confirmPassword, context) => confirmPassword === context.parent.password
+    }).required(),
     birthdate: yup.date(),
     phoneNumber: yup.string(),
     cpf: yup.string(),
@@ -58,6 +60,8 @@ export const adminSchema = {
     lastName: yup.string().required(),
     email: yup.string().email().required(),
     password: yup.string().required(),
-    confirmPassword: yup.string().required(),
+    passwordConfirmation: yup.string().test({
+        test: (confirmPassword, context) => confirmPassword === context.parent.password
+    }).required(),
     isAdmin: yup.boolean(),
 };
