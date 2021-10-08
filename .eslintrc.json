@@ -43,6 +43,8 @@
         "@typescript-eslint/no-shadow": [
             "error"
         ],
-        "@typescript-eslint/explicit-function-return-type": "error"
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "no-plusplus": "off",
+        "no-param-reassign": "off"
     }
 }

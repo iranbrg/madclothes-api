@@ -40,7 +40,10 @@ describe("ListCustomersService", () => {
 
         await Promise.all(users.map(async user => userRepository.create(user)));
 
-        const customers = await listCustomersService.execute();
+        const customers = await listCustomersService.execute({
+            limit: 10,
+            page: 1
+        });
 
         const usersWithoutPassword = users.map(user => {
             const { password, ...userWithoutPassword } = user;

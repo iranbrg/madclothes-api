@@ -5,6 +5,10 @@ import UserDTO from "../../dto/UserDTO";
 export default class UserRepository implements IUserRepository {
     private users: User[] = [];
 
+    public async countCustomers(): Promise<number> {
+        return this.users.reduce(counter => ++counter, 0);
+    }
+
     public async findAllCustomers(): Promise<User[]> {
         return this.users.filter(user => !user.isAdmin);
     }

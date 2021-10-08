@@ -68,8 +68,8 @@ In the `main` branch, one can use the stable version of this API whereas in the
 
 This project is deployed on Heroku and any client can consume this API. So
 checkout:
-- [Production](https://madclothes-api-prod.herokuapp.com/)
 - [Staging](https://madclothes-api-staging.herokuapp.com/)
+- [Production](https://madclothes-api-prod.herokuapp.com/)
 
 To check the current project's stage and the plans for new features, see [TODO.md](./docs/TODO.md)
 
