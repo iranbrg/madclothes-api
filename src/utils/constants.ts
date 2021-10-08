@@ -1,4 +1,4 @@
-export enum HTTP {
+export const enum HTTP {
     Ok = 200, // Response to a successful GET, PUT, PATCH or DELETE. Can also be used for a POST that doesn't result in a creation.
     Created = 201, // Response to a POST that results in a creation. Should be combined with a Location header pointing to the location of the new resource
     NoContent = 204, // Response to a successful request that won't be returning a body (like a DELETE request)

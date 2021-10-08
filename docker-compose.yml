@@ -25,6 +25,28 @@ services:
     volumes:
       - postgres-test-data:/var/lib/postgresql/data
 
+  redis-development:
+    image: redis
+    container_name: redis-development
+    restart: always
+    ports:
+      - "${REDIS_PORT}:6379"
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    volumes:
+      - redis-development-data:/var/lib/redisql/data
+
+  redis-test:
+    image: redis
+    container_name: redis-test
+    restart: always
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis-test-data:/var/lib/postgresql/data
+
 volumes:
   postgres-development-data:
   postgres-test-data:
+  redis-development-data:
+  redis-test-data:
