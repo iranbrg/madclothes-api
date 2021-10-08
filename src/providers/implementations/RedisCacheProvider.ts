@@ -32,7 +32,11 @@ export default class RedisCacheProvider implements ICacheProvider {
     }
 
     public async delPrefix(prefix: string): Promise<void> {
-        const keys = await this.redis.keys(`${prefix}:*`);
-        await this.redis.del(keys);
+        const keys = await this.redis.keys(`${prefix}*`);
+        const pipeline = this.redis.pipeline();
+
+        keys.forEach(key => pipeline.del(key));
+
+        await pipeline.exec();
     }
 }

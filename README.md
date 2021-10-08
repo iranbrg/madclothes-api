@@ -10,7 +10,7 @@ the stack informed below, and build a portfolio.
 
 - [Typescript](https://www.typescriptlang.org/)
 - [Node.js](https://nodejs.org/en/)
-- [Express.js](https://expressjs.com/pt-br/)
+- [Express](https://expressjs.com/pt-br/)
 - [TypeORM](https://typeorm.io/#/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Jest](https://jestjs.io/)

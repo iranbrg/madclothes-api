@@ -4,13 +4,17 @@ import { AppError } from "../utils/errors";
 import UserDTO from "../dto/UserDTO";
 import IUserRepository from "../repositories/IUserRepository";
 import User from "../entities/User";
+import ICacheProvider from "../providers/ICacheProvider";
 
 @injectable()
 export default class CreateUserService {
     constructor(
         @inject("UserRepository")
-        private userRepository: IUserRepository
-    ) {}
+        private userRepository: IUserRepository,
+
+        @inject("CacheProvider")
+        private cacheProvider: ICacheProvider
+    ) { }
 
     public async execute({
         firstName,
@@ -50,6 +54,10 @@ export default class CreateUserService {
             zipCode,
             isAdmin
         });
+
+        if (!isAdmin) {
+            await this.cacheProvider.delPrefix("users:customers");
+        }
 
         const { password: passwd, ...userWithoutPassword } = newUser;
 
