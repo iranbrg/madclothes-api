@@ -1,8 +1,8 @@
-import Redis, { RedisOptions, Redis as RedisClient } from "ioredis";
+import Redis, { RedisOptions } from "ioredis";
 import ICacheProvider from "../ICacheProvider";
 
 export default class RedisCacheProvider implements ICacheProvider {
-    private redis: RedisClient;
+    private redis: Redis.Redis;
 
     constructor() {
         this.redis = new Redis({
@@ -12,8 +12,8 @@ export default class RedisCacheProvider implements ICacheProvider {
         } as RedisOptions);
     }
 
-    public async set(key: string, value: any): Promise<void> {
-        await this.redis.set(key, JSON.stringify(value));
+    public async set(key: string, value: any, time?: number): Promise<void> {
+        await this.redis.set(key, JSON.stringify(value), "EX", time);
     }
 
     public async get<T>(key: string): Promise<T | null> {
