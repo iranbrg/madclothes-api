@@ -3,6 +3,7 @@ import PaginationDTO from "../dto/PaginationDTO";
 import User from "../entities/User";
 import ICacheProvider from "../providers/ICacheProvider";
 import IUserRepository from "../repositories/IUserRepository";
+import paginate from "../utils/pagination";
 
 type CustomersWithoutPassword = Omit<User, "password">[];
 
@@ -24,8 +25,6 @@ export default class ListCustomersService {
 
         if (!customers) {
             customers = await this.userRepository.findAllCustomers(
-                limit,
-                page
             );
 
             await this.cacheProvider.set("users:customers", customers);
@@ -36,6 +35,11 @@ export default class ListCustomersService {
             return customerWithoutPassword;
         });
 
-        return customersWithoutPassword;
+        console.log(customers);
+
+        const paginatedResult = paginate(limit, page, customersWithoutPassword);
+
+        console.log(paginatedResult);
+        return paginatedResult;
     }
 }

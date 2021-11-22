@@ -4,22 +4,19 @@ import IUserRepository from "../IUserRepository";
 import UserDTO from "../../dto/UserDTO";
 
 export default class UserRepository implements IUserRepository {
-    private userRepository: Repository<User> = getRepository(User);
+    private userRepository: Repository<User>;
+
+    constructor() {
+        this.userRepository = getRepository(User);
+    }
 
     public async countCustomers(): Promise<number> {
         return this.userRepository.count({ isAdmin: false });
     }
 
-    public async findAllCustomers(
-        limit: number,
-        page: number
-    ): Promise<User[]> {
-        const offset = (page - 1) * limit;
-
+    public async findAllCustomers(): Promise<User[]> {
         return this.userRepository.find({
             where: { isAdmin: false },
-            skip: offset,
-            take: limit
         });
     }
 
